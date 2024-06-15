@@ -22,13 +22,14 @@ jobs:
       - name: login-ecr
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true
 
       - name: docker-build
         run:
           git clone https://github.com/BaneJJ/intens-api-2022.git
           cd intens-api-2022
-          docker build intens-api-2022 .
-          docker tag intens-api-2022:latest public.ecr.aws/s3f2j1h0/intens-api-2022:latest
+          docker build -t intens-api-2022 .
           docker push public.ecr.aws/s3f2j1h0/intens-api-2022:latest
 
       - name: aws-deploy
