@@ -1,0 +1,38 @@
+name: deploy-docker-image
+on:
+  push:
+    branches: 
+      - master
+jobs:
+  deployment: 
+    name: deployment
+    runs-on: ubuntu-latest
+    env:
+      SERVER_PORT: 8080
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: aws-credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: login-ecr
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: docker-build
+        run:
+          git clone https://github.com/BaneJJ/intens-api-2022.git
+          cd intens-api-2022
+          docker build -t intens-api-2022 .
+          docker tag intens-api-2022:latest public.ecr.aws/s3f2j1h0/intens-api-2022:latest
+          docker push public.ecr.aws/s3f2j1h0/intens-api-2022:latest
+
+      - name: aws-deploy
+        run:
+          aws ecs update-service --cluster praksa-2024 --service backend --force-new-deployment
+      
+  
