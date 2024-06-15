@@ -29,6 +29,7 @@ jobs:
         run: |
           git clone https://github.com/BaneJJ/intens-api-2022.git
           cd intens-api-2022
+          mvn clean install spring-boot:repackage
           docker build -t public.ecr.aws/s3f2j1h0/intens-api-2022:latest .
           docker push public.ecr.aws/s3f2j1h0/intens-api-2022:latest
 
