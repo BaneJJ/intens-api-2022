@@ -8,7 +8,7 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     env:
-      server.port: 8080
+      server.port: '8080'
     steps: 
       - name: checkout
         uses: actions/checkout@v2
