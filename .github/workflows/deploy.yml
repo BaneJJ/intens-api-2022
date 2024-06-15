@@ -35,4 +35,4 @@ jobs:
 
       - name: aws-deploy
         run: |
-          aws ecs update-service --cluster praksa-2024 --service backend --force-new-deployment
+          aws ecs update-service --cluster praksa-1 --service backend --force-new-deployment
