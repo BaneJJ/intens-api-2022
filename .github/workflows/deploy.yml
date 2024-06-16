@@ -22,6 +22,8 @@ jobs:
       - name: login-ecr
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true
 
       - name: docker-build
         run: |
