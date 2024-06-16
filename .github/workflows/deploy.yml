@@ -30,9 +30,8 @@ jobs:
           git clone https://github.com/BaneJJ/intens-api-2022.git
           cd intens-api-2022
           docker build -t 391253690506.dkr.ecr.us-east-1.amazonaws.com/intens-api-2022 .
-          docker login
           docker push 391253690506.dkr.ecr.us-east-1.amazonaws.com/intens-api-2022
 
       - name: aws-deploy
         run: |
-          aws ecs update-service --cluster praksa-1 --service backend --force-new-deployment
+          aws ecs update-service --cluster praksa-1 --service praksa-service --force-new-deployment
